@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 def background_home():
     st.markdown(
         """
@@ -16,6 +17,7 @@ def background_home():
                """,
         unsafe_allow_html=True,
     )
+
 
 def background_dashboard():
     st.markdown(
