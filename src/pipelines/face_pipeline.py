@@ -83,7 +83,7 @@ def predict_attendance(class_image_np):
     all_students = sorted(list(set(y_train)))
     
     for encoding in encodings:
-        if( len(all_students) >= 2):
+        if(len(all_students) >= 2):
             predicted_id = int(clf.predict([encoding])[0])
         else:
             predicted_id = int(all_students[0])
@@ -97,5 +97,5 @@ def predict_attendance(class_image_np):
         if best_match_score <= resemblance_threshold:
             detected_student[predicted_id] = True
 
-    return detected_student, all_students,len(encoding)         
+    return detected_student, all_students,len(encodings)         
         
