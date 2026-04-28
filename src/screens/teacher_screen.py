@@ -341,7 +341,6 @@ def teacher_tab_attendance_records():
 
     st.dataframe(display_df, hide_index=True, width="stretch")
 
-    st.dataframe(display_df, hide_index=True)
 
 
 def login_teacher(username, password):
