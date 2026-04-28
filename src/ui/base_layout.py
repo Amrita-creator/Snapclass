@@ -12,7 +12,9 @@ def background_home():
                    background-color : #E0E3FF !important;
                    padding: 2.5rem !important;
                    border-radius: 5rem;
+                   color : black !important;
                 }
+                
         </style>             
                """,
         unsafe_allow_html=True,

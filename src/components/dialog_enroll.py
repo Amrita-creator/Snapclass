@@ -1,30 +1,40 @@
-from time import time
+import time
 
 import streamlit as st
 from src.database.db import create_subject
 from src.database.config import supabase
-from src.database.db import enroll_student_to_subject 
+from src.database.db import enroll_student_to_subject
 
 
 @st.dialog("Enroll in the subject")
 def enroll_dialog():
-    st.write('Enter the subject code provided by your teacher to enroll')
-    join_code = st.text_input('subject Code', placeholder = 'Eg. BTCS302-18')
+    st.write("Enter the subject code provided by your teacher to enroll")
+    join_code = st.text_input("subject Code", placeholder="Eg. BTCS302-18")
 
-    if st.button('Enroll now', type='primary', width='stretch'):
+    if st.button("Enroll now", type="primary", width="stretch"):
         if join_code:
-            res = supabase.table('subjects').select('subject_id, name, subject_code').eq('subject_code', join_code).execute()
+            res = (
+                supabase.table("subjects")
+                .select("subject_id, name, subject_code")
+                .eq("subject_code", join_code)
+                .execute()
+            )
             if res.data:
                 subject = res.data[0]
-                student_id = st.session_state.student_data['student_id']
-                check = supabase.table('subject_students').select('*').eq('subject_id', subject['subject_id']).eq('student_id', student_id).execute()
+                student_id = st.session_state.student_data["student_id"]
+                check = (
+                    supabase.table("subject_students")
+                    .select("*")
+                    .eq("subject_id", subject["subject_id"])
+                    .eq("student_id", student_id)
+                    .execute()
+                )
                 if check.data:
-                    st.warning('You are already enrolled in this subject')
+                    st.warning("You are already enrolled in this subject")
                 else:
-                    enroll_student_to_subject(student_id, subject['subject_id'])
+                    enroll_student_to_subject(student_id, subject["subject_id"])
                     st.toast(f"Enrolled in {subject['name']} successfully!")
                     time.sleep(1)
-                    st.rerun()    
+                    st.rerun()
         else:
-            st.warning('Please enter the subject code to enroll')
-   
+            st.warning("Please enter the subject code to enroll")
